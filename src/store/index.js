@@ -1,14 +1,32 @@
 import { createStore } from "redux";
 
-const counterReducer = (state = { counter: 0 }, action) => {
+const initialState = { counter: 0, toggle: false };
+
+const counterReducer = (state = initialState, action) => {
   if (action.type === "increment") {
     return {
       counter: state.counter + 1,
+      toggle: state.toggle,
+    };
+  }
+
+  if (action.type === "incrementBy5") {
+    return {
+      counter: state.counter + action.value,
+      toggle: state.toggle,
     };
   }
   if (action.type === "decrement") {
     return {
       counter: state.counter - 1,
+      toggle: state.toggle,
+    };
+  }
+
+  if (action.type === "toggle") {
+    return {
+      toggle: !state.toggle,
+      counter: state.counter,
     };
   }
 
@@ -18,24 +36,3 @@ const counterReducer = (state = { counter: 0 }, action) => {
 const store = createStore(counterReducer);
 
 export default store;
-
-// import { createStore } from "redux";
-
-// const counterReducer = (state = { counter: 0 }, action) => {
-//   if (action.type === "increment") {
-//     return {
-//       counter: state.counter + 1,
-//     };
-//   }
-//   if (action.type === "decrement") {
-//     return {
-//       counter: state.counter - 1,
-//     };
-//   }
-
-//   return state;
-// };
-
-// const store = createStore(counterReducer);
-
-// export default store;
